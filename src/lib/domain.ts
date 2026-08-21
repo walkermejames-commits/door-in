@@ -48,6 +48,11 @@ export type PriceBreakdown = {
   driverPayoutEstimate?: Money;
 };
 
+const itemSizeSchema = z.preprocess(
+  (value) => value === null || value === "" ? undefined : value,
+  z.enum(["small", "medium", "large", "furniture", "van_load"]).optional(),
+);
+
 export const createOrderSchema = z.object({
   serviceType: z.enum(serviceTypes),
   customerName: z.string().trim().min(2).max(120),
@@ -55,9 +60,16 @@ export const createOrderSchema = z.object({
   pickupPostcode: z.string().trim().min(3).max(12),
   deliveryPostcode: z.string().trim().min(3).max(12),
   distanceMiles: z.coerce.number().min(0).max(100).default(3),
-  itemSize: z.enum(["small", "medium", "large", "furniture", "van_load"]).optional(),
+  itemSize: itemSizeSchema,
   basketRrpPence: z.coerce.number().int().min(0).max(100000).optional(),
   restrictedItems: z.boolean().default(false),
+}).superRefine((order, context) => {
+  if (order.serviceType === "collection_delivery" && !order.itemSize) {
+    context.addIssue({ code: "custom", path: ["itemSize"], message: "Choose an item size." });
+  }
+  if (order.serviceType === "shop_and_deliver" && order.basketRrpPence === undefined) {
+    context.addIssue({ code: "custom", path: ["basketRrpPence"], message: "Enter a rough basket value." });
+  }
 });
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 

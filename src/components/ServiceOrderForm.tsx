@@ -24,7 +24,7 @@ export function ServiceOrderForm({ serviceType }: Props) {
       pickupPostcode: formData.get("pickupPostcode"),
       deliveryPostcode: formData.get("deliveryPostcode"),
       distanceMiles: formData.get("distanceMiles"),
-      itemSize: formData.get("itemSize"),
+      itemSize: shopping ? undefined : formData.get("itemSize"),
       basketRrpPence: shopping ? Math.round(Number(formData.get("basketGbp")) * 100) : undefined,
       restrictedItems: formData.get("restrictedItems") === "on",
     };

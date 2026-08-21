@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
 import { calculateCollectionPrice, calculateShoppingPrice, createOrderSchema } from "@/lib/domain";
 import { createAdminClient, createClient } from "@/lib/supabase/server";
 
@@ -49,7 +50,9 @@ export async function POST(request: Request) {
     }
     return NextResponse.json({ booking: { ...booking, price }, checkoutUrl: `/checkout/${booking.id}`, mode: "live_database" }, { status: 201 });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Invalid request.";
+    const message = error instanceof ZodError
+      ? "Please check your request details and try again."
+      : error instanceof Error ? error.message : "Could not send your request.";
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }
