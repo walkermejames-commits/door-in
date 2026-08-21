@@ -1,5 +1,24 @@
-import { ServiceOrderForm } from "@/components/ServiceOrderForm";
+import { ServiceLanding } from "@/components/ServiceLanding";
 
 export default function DoorInFourPage() {
-  return <section className="product"><p className="eyebrow">Door in Four</p><h1>Collection and delivery, quoted clearly.</h1><p className="lead">For items already owned: get a transport quote, pay securely, follow the driver, and receive verified collection and delivery proof.</p><div className="split"><div className="panel"><h2>What this service does</h2><ul><li>Buyer-led collection from a seller or home.</li><li>Quote based on route, size, handling and access.</li><li>Driver assignment, handover code and proof photo.</li><li>Customer tracking, support and dispute path.</li></ul></div><div className="panel accent"><h2>Pilot request</h2><ServiceOrderForm serviceType="collection_delivery" /></div></div></section>;
+  return <ServiceLanding
+    brand="Door in Four"
+    theme="four"
+    serviceType="collection_delivery"
+    eyebrow="Local collection & delivery"
+    title={<>Bought it? <em>We&apos;ll bring it home.</em></>}
+    lead="From Marketplace finds to furniture and bulky buys, we collect locally and deliver to your door—without the van-hire headache."
+    formTitle="Where is it going?"
+    formIntro="Share the collection and delivery postcodes plus the item size. We’ll turn that into a clear quote for you."
+    highlights={[
+      { icon: "↗", title: "Marketplace wins", copy: "Turn that great local find into an easy delivery." },
+      { icon: "⌂", title: "Door to door", copy: "Collection and drop-off, handled as one simple job." },
+      { icon: "♡", title: "Handled with care", copy: "A local service with real people keeping an eye on things." },
+    ]}
+    steps={[
+      { title: "Tell us what you bought", copy: "Add the two postcodes, rough distance and item size." },
+      { title: "Approve your quote", copy: "See the price clearly before you decide to go ahead." },
+      { title: "We bring it home", copy: "A suitable local driver collects it and keeps you updated." },
+    ]}
+  />;
 }

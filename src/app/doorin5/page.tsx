@@ -1,5 +1,24 @@
-import { ServiceOrderForm } from "@/components/ServiceOrderForm";
+import { ServiceLanding } from "@/components/ServiceLanding";
 
 export default function Doorin5Page() {
-  return <section className="product"><p className="eyebrow">Doorin5</p><h1>Local shopping, responsibly delivered.</h1><p className="lead">For goods a customer wants bought locally: approve a basket cap and substitutions, then receive a receipt-backed delivery with clear item, service and delivery charges.</p><div className="split"><div className="panel"><h2>What makes this different</h2><ul><li>Basket RRP, 20% service markup and delivery are itemised.</li><li>Operations reserve fulfilment float before any purchase.</li><li>Restricted goods require an auditable recipient ID check.</li><li>Substitutions and price variation need customer approval.</li></ul></div><div className="panel accent"><h2>Pilot request</h2><ServiceOrderForm serviceType="shop_and_deliver" /></div></div></section>;
+  return <ServiceLanding
+    brand="Doorin5"
+    theme="five"
+    serviceType="shop_and_deliver"
+    eyebrow="Tunbridge Wells local errands"
+    title={<>Your local to-do list, <em>delivered.</em></>}
+    lead="Groceries, essentials or that one thing you can’t get out for—we shop locally and bring it straight to your door."
+    formTitle="What can we pick up for you?"
+    formIntro="Tell us where to shop, where to deliver and roughly what the basket will cost. We’ll confirm everything before payment."
+    highlights={[
+      { icon: "✦", title: "Everyday errands", copy: "The local shop run, handled when your day is already full." },
+      { icon: "◎", title: "You approve first", copy: "A clear total comes to you before checkout opens." },
+      { icon: "⌖", title: "Properly local", copy: "Built around Tunbridge Wells and nearby neighbourhoods." },
+    ]}
+    steps={[
+      { title: "Tell us what you need", copy: "Share the shop, basket estimate and delivery postcode." },
+      { title: "Check the quote", copy: "Review the expected shopping and delivery total before paying." },
+      { title: "Put your feet up", copy: "Your driver shops, collects the receipt and brings it to you." },
+    ]}
+  />;
 }
