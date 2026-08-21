@@ -9,12 +9,14 @@ export function ServiceOrderForm({ serviceType }: Props) {
   const shopping = serviceType === "shop_and_deliver";
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   async function submit(formData: FormData) {
     setPending(true);
     setError(null);
     setResult(null);
+    setCheckoutUrl(null);
     const payload = {
       serviceType,
       customerName: formData.get("customerName"),
@@ -28,9 +30,10 @@ export function ServiceOrderForm({ serviceType }: Props) {
     };
     try {
       const response = await fetch("/api/orders", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
-      const body = (await response.json()) as { error?: string; booking?: { request_reference: string; price: { customerTotal: { amountPence: number } } } };
+      const body = (await response.json()) as { error?: string; checkoutUrl?: string; booking?: { request_reference: string; price: { customerTotal: { amountPence: number } } } };
       if (!response.ok || !body.booking) throw new Error(body.error ?? "Could not send your request.");
       setResult(`Request ${body.booking.request_reference} received. Estimated customer total: £${(body.booking.price.customerTotal.amountPence / 100).toFixed(2)}. Operations will prepare the next step.`);
+      setCheckoutUrl(body.checkoutUrl ?? null);
     } catch (submissionError) {
       setError(submissionError instanceof Error ? submissionError.message : "Could not prepare your request.");
     } finally {
@@ -55,8 +58,9 @@ export function ServiceOrderForm({ serviceType }: Props) {
       {shopping ? <label className="check"><input name="restrictedItems" type="checkbox" /> Includes age-restricted goods (ID check required)</label> : null}
       <button type="submit" disabled={pending}>{pending ? "Preparing…" : shopping ? "Estimate my shop & delivery" : "Get a collection quote"}</button>
       {result ? <p className="success">{result}</p> : null}
+      {checkoutUrl ? <p><a className="button secondary" href={checkoutUrl}>Open payment status</a></p> : null}
       {error ? <p className="error">{error}</p> : null}
-      <p className="fine-print">You must be signed in to send a request. Payment is not collected on this screen; checkout is enabled only after operations issues a valid quote.</p>
+      <p className="fine-print">You must be signed in to send a request. Payment is available only after operations issues a valid quote. Human-test deployments show a clearly labelled fake-payment option instead of charging a card.</p>
     </form>
   );
 }

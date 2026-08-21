@@ -47,7 +47,7 @@ export async function POST(request: Request) {
       });
       if (basketError) throw basketError;
     }
-    return NextResponse.json({ booking: { ...booking, price }, mode: "live_database" }, { status: 201 });
+    return NextResponse.json({ booking: { ...booking, price }, checkoutUrl: `/checkout/${booking.id}`, mode: "live_database" }, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Invalid request.";
     return NextResponse.json({ error: message }, { status: 400 });
