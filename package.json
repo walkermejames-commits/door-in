@@ -1,0 +1,34 @@
+{
+  "name": "door-in-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared operating platform for the Door in Four collection service and Doorin5 shopping service.",
+  "engines": { "node": ">=20.10.0" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/**/*.test.ts",
+    "check": "npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@supabase/ssr": "0.8.0",
+    "@supabase/supabase-js": "2.97.0",
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "stripe": "18.4.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.30",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.1",
+    "eslint-config-next": "16.2.7",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}
