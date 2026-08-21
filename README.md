@@ -34,6 +34,27 @@ npm run dev
 
 Open `http://localhost:3000`, create an account, then submit a customer request or driver application. Data persists once Supabase is configured and the additive migration is applied.
 
+## Cloudflare delivery plan
+
+The platform is configured for the Cloudflare OpenNext adapter. It keeps both businesses in one secure deployment while presenting distinct public entrances:
+
+- `doorinfour.jameseventures.com` opens Door in Four only.
+- `doorin5.jameseventures.com` opens Doorin5 only.
+- `/driver` and `/operations` remain shared, role-controlled workspaces.
+
+Before any public deployment, set these Worker environment values in Cloudflare:
+
+```text
+NEXT_PUBLIC_SUPABASE_URL=https://djmkqmvpmhhozzguhqot.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<Supabase publishable key>
+SUPABASE_SERVICE_ROLE_KEY=<server-only Supabase service-role key>
+FAKE_PAYMENTS_ENABLED=true
+```
+
+`SUPABASE_SERVICE_ROLE_KEY` must be stored as a Cloudflare secret, never committed or put in a `NEXT_PUBLIC_` variable. With `FAKE_PAYMENTS_ENABLED=true`, the human-test checkout records a test payment but never contacts Stripe. Switch that flag off before any non-test deployment.
+
+Use `pnpm preview` to test the Workers runtime and `pnpm deploy` only after the secret is present. Then attach the two custom subdomains to the Worker; do not replace `jameseventures.com` or `www.jameseventures.com`.
+
 ## Enable controller and driver access
 
 1. Use the existing Supabase project and set its public URL/key plus the server-only service-role and Stripe variables in `.env.local`.
