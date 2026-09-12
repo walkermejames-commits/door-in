@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </nav>
     </header>
     <main>{children}</main>
-    <footer className="site-footer"><div><Link href={home} className="footer-brand">{brand === "Door In Platform" ? "Door In" : brand}</Link><p>{brand === "Doorin5" ? "Local errands, properly handled." : brand === "Door in Four" ? "The easy way to bring local purchases home." : "Two useful local services, one friendly team."}</p></div><div className="footer-links"><Link href="/driver/onboarding">Drive with us</Link><Link href="/login">Customer sign in</Link><Link href="/operations">Staff access</Link></div></footer>
     <ReportBreakControl />
+    <footer className="site-footer"><div><Link href={home} className="footer-brand">{brand === "Door In Platform" ? "Door In" : brand}</Link><p>{brand === "Doorin5" ? "Local errands, properly handled." : brand === "Door in Four" ? "The easy way to bring local purchases home." : "Two useful local services, one friendly team."}</p></div><div className="footer-links"><Link href="/driver/onboarding">Drive with us</Link><Link href="/login">Customer sign in</Link><Link href="/operations">Staff access</Link></div></footer>
   </body></html>;
 }

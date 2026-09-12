@@ -1,26 +1,11 @@
-import Image from "next/image";
-import { ReportBreakControl } from "@/components/ReportBreakControl";
-
-export const metadata = { title: "Report a break | Door in Four" };
+export const metadata = { title: "Report a fault | Door in Four" };
 
 export default function ReportBreakPage() {
   return (
-    <section className="auth-page report-break-page">
-      <div className="auth-welcome">
-        <Image
-          src="/images/door-in-duck.png"
-          alt=""
-          width={160}
-          height={160}
-          className="report-break-duck"
-        />
-        <p className="eyebrow">Door in Four · beta</p>
-        <h1>Something doesn’t work.</h1>
-        <p>Tell us what broke. We open a GitHub issue labelled beta-break. This does not auto-patch the site.</p>
-      </div>
-      <div className="auth-card">
-        <ReportBreakControl variant="page" />
-      </div>
+    <section className="product narrow">
+      <p className="eyebrow">This page</p>
+      <h1>Report a fault.</h1>
+      <p className="lead">Use the box at the bottom of any page. Say what’s wrong, then submit. We’ll get this page.</p>
     </section>
   );
 }
