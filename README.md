@@ -72,3 +72,33 @@ Before exposing live orders, verify every RLS policy and transition using separa
 - Doorin5 only: basket RRP, customer spending cap, substitutions, restricted-goods controls, receipt reconciliation and float ledger.
 
 See [ROADMAP.md](./ROADMAP.md) for the full cross-referenced implementation plan.
+
+## Beta-break intake
+
+When a tester or the website says something does not work, `POST /api/beta-break` creates a GitHub issue labelled `beta-break`. It does **not** auto-patch code.
+
+Set these on the host (Cloudflare Worker / Vercel — server-only, never `NEXT_PUBLIC_`):
+
+```text
+BETA_BREAK_INTAKE_KEY=<random shared secret for server-to-server posts>
+GITHUB_BETA_TOKEN=<GitHub token that can open issues on walkermejames-commits/door-in>
+GITHUB_BETA_OWNER=walkermejames-commits
+GITHUB_BETA_REPO=door-in
+```
+
+Health check:
+
+```bash
+curl -s https://doorinfour.jameseventures.com/api/beta-break
+```
+
+Server-to-server report (sends the key). Browser widget posts to the same path **without** the key and is same-origin + rate-limited (5/min/IP):
+
+```bash
+curl -s -X POST https://doorinfour.jameseventures.com/api/beta-break \
+  -H "content-type: application/json" \
+  -H "x-beta-break-key: $BETA_BREAK_INTAKE_KEY" \
+  -d '{"app":"login","severity":"blocker","what_broke":"Sign-in failed","url":"https://doorinfour.jameseventures.com/login","source":"manual"}'
+```
+
+Testers can also use `/report-break` or the corner **This doesn’t work** control.

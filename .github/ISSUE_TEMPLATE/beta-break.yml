@@ -1,0 +1,60 @@
+name: Beta break
+description: Something on Door in Four / Doorin5 does not work.
+title: "[beta-break][annoying] app: short description"
+labels: ["beta-break"]
+body:
+  - type: dropdown
+    id: app
+    attributes:
+      label: App
+      options:
+        - door-in-four
+        - doorin5
+        - driver
+        - operations
+        - checkout
+        - login
+        - other
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - blocker
+        - annoying
+        - typo
+    validations:
+      required: true
+  - type: textarea
+    id: what_broke
+    attributes:
+      label: What broke
+      description: What you tried and what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: What should have happened.
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      placeholder: https://doorinfour.jameseventures.com/...
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      placeholder: iPad / Safari
+  - type: input
+    id: screenshot_url
+    attributes:
+      label: Screenshot URL
+  - type: input
+    id: reporter
+    attributes:
+      label: Reporter
+      placeholder: name or email

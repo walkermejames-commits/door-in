@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";
 import "./globals.css";
+import { ReportBreakControl } from "@/components/ReportBreakControl";
 
 export const metadata: Metadata = { title: "Door In | Local help, delivered", description: "Friendly local collection, delivery and errand services around Tunbridge Wells." };
 
@@ -21,5 +22,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     </header>
     <main>{children}</main>
     <footer className="site-footer"><div><Link href={home} className="footer-brand">{brand === "Door In Platform" ? "Door In" : brand}</Link><p>{brand === "Doorin5" ? "Local errands, properly handled." : brand === "Door in Four" ? "The easy way to bring local purchases home." : "Two useful local services, one friendly team."}</p></div><div className="footer-links"><Link href="/driver/onboarding">Drive with us</Link><Link href="/login">Customer sign in</Link><Link href="/operations">Staff access</Link></div></footer>
+    <ReportBreakControl />
   </body></html>;
 }
