@@ -152,10 +152,15 @@ legend { font-size:.8rem; font-weight:850; }
 
 .report-break-control { bottom:1.15rem; position:fixed; right:1.15rem; z-index:80; }
 .report-break-fab { background:var(--forest); border:1px solid var(--forest); box-shadow:0 10px 24px rgba(21,77,59,.22); font-size:.78rem; min-height:2.4rem; padding:.55rem .9rem; }
-.report-break-panel { background:var(--paper); border:1px solid var(--line); border-radius:1.15rem; box-shadow:var(--shadow); max-width:20rem; padding:1.1rem 1.15rem 1.2rem; position:relative; width:min(20rem,calc(100vw - 2rem)); }
+.report-break-panel { background:var(--paper); border:1px solid var(--line); border-radius:1.15rem; box-shadow:var(--shadow); max-width:22rem; padding:1.1rem 1.15rem 1.2rem; position:relative; width:min(22rem,calc(100vw - 2rem)); }
 .report-break-close { background:transparent; border:0; color:var(--muted); font-size:1.3rem; min-height:auto; padding:.2rem .45rem; position:absolute; right:.35rem; top:.25rem; }
-.report-break-form { display:grid; gap:.7rem; }
-.report-break-form .page-fault-title { font-weight:850; margin:0; padding-right:1.4rem; }
-.report-break-form textarea { min-height:5rem; }
+.report-break-form { display:grid; gap:.75rem; }
+.report-break-form h2 { font-size:1.15rem; letter-spacing:-.03em; margin:0; }
+.report-break-form>p { color:var(--muted); font-size:.8rem; margin:0; }
 .report-break-form button[type=submit] { width:100%; }
-@media (max-width:700px) { .report-break-control{bottom:.85rem;right:.85rem} }
+.report-break-form .success a { color:inherit; text-decoration:underline; word-break:break-all; }
+.report-break-form .form-grid { gap:.7rem; }
+.report-break-panel .form-grid { grid-template-columns:1fr; }
+.report-break-duck { height:auto; margin-bottom:1.5rem; width:7rem; }
+.report-break-page .report-break-form .form-grid { grid-template-columns:1fr; }
+@media (max-width:700px) { .report-break-control{bottom:.85rem;right:.85rem} .report-break-panel{max-width:calc(100vw - 1.7rem)} }
