@@ -30,26 +30,30 @@ function rateLimit(ip: string) {
   return true;
 }
 
-function requestOrigin(request: Request) {
-  const origin = request.headers.get("origin");
-  if (origin) {
-    try { return new URL(origin).origin; } catch { /* ignore */ }
+function headerOrigin(value: string | null) {
+  if (!value) return null;
+  try {
+    return new URL(value).origin;
+  } catch {
+    return null;
   }
-  const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
-  if (!host) return null;
-  const proto = request.headers.get("x-forwarded-proto") ?? "https";
-  return `${proto}://${host}`;
 }
 
 function isSameOrigin(request: Request) {
-  const incoming = requestOrigin(request);
-  if (!incoming) return false;
+  let requestOrigin: string;
   try {
-    return incoming === new URL(request.url).origin;
+    requestOrigin = new URL(request.url).origin;
   } catch {
-    const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
-    return Boolean(host && incoming.includes(host));
+    return false;
   }
+
+  const origin = headerOrigin(request.headers.get("origin"));
+  if (origin) return origin === requestOrigin;
+
+  const referer = headerOrigin(request.headers.get("referer"));
+  if (referer) return referer === requestOrigin;
+
+  return false;
 }
 
 function githubMessage(payload: unknown) {
