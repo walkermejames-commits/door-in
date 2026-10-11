@@ -5,6 +5,7 @@ import {
   formatBetaBreakBody,
   formatBetaBreakTitle,
 } from "@/lib/beta-break";
+import { githubAuthorizationHeader } from "@/lib/github-authorization";
 
 export const runtime = "nodejs";
 
@@ -95,7 +96,7 @@ export async function POST(request: Request) {
       method: "POST",
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${token}`,
+        Authorization: githubAuthorizationHeader(token),
         "Content-Type": "application/json",
         "X-GitHub-Api-Version": "2022-11-28",
         "User-Agent": "door-in-beta-break-intake",
